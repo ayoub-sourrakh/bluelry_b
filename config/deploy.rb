@@ -39,6 +39,6 @@ task :deploy do
     end
   end
   
-  after :finishing, 'deploy:cleanup'
+  after 'deploy:finishing', 'deploy:cleanup'
   after 'deploy:cleanup', 'deploy:restart'
 end
