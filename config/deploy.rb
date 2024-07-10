@@ -4,21 +4,25 @@ lock "~> 3.19.1"
 require 'capistrano-db-tasks'
 
 set :application, "Bluelry"
-set :repo_url, "git@github.com:ayoub-sourrakh/project_sprint.git"
+set :repo_url, "git@github.com:ayoub-sourrakh/bluelry_b.git"
 set :filter, :roles => %w{app}
 set :use_sudo, true
-set :deploy_to, '/home/ubuntu/project_sprint/bluelry_b'
-set :branch, 'prod'
+set :deploy_to, '/home/ubuntu/bluelry_b'
+set :branch, 'main'
 set :rails_env, 'production'
 set :assets_prefix, 'packs'
 # In deploy.rb
 # Add or adjust default_env to append .npm-packages to $PATH:
 set :default_env, {
   PATH: '$HOME/.npm-packages/bin/:$PATH',
-  NODE_ENVIRONMENT: 'production'
+  NODE_ENVIRONMENT: 'production',
+  'DATABASE_USERNAME' => ENV['DATABASE_USERNAME'],
+  'DATABASE_PASSWORD' => ENV['DATABASE_PASSWORD'],
+  'DATABASE_HOST' => ENV['DATABASE_HOST'],
+  'DATABASE_NAME' => ENV['DATABASE_NAME']
 }
 ####
-# set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/credentials/production.key}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle .bundle public/system public/uploads public/packs node_modules }
 set :keep_releases, 3
 set :keep_assets, 3
